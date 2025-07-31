@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,47 +6,31 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <style>
-    #map {
-      height: 100vh;
-    }
-  </style>
+  <style>#map { height: 100vh; }</style>
 </head>
 <body>
   <div id="map"></div>
-
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    // Initialize the map
-    var map = L.map('map').setView([8.5, 124.5], 9); // Center it over Mindanao (edit as needed)
+    var map = L.map('map').setView([8.65, 124.35], 12);
 
-    // Add base map (OpenStreetMap)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'Map data © <a href="https://www.openstreetmap.org">OpenStreetMap</a> contributors'
+      attribution: 'Map data © OpenStreetMap contributors'
     }).addTo(map);
 
-    // Add watershed boundary (GeoJSON)
     fetch('watershed.geojson')
       .then(res => res.json())
       .then(data => {
         L.geoJSON(data, {
-          style: {
-            color: 'blue',
-            weight: 2,
-            fillOpacity: 0.1
-          }
+          style: { color: 'blue', weight: 2, fillOpacity: 0.1 }
         }).addTo(map);
       });
 
-    // Add river network (GeoJSON)
     fetch('rivers.geojson')
       .then(res => res.json())
       .then(data => {
         L.geoJSON(data, {
-          style: {
-            color: 'cyan',
-            weight: 1
-          }
+          style: { color: 'cyan', weight: 1 }
         }).addTo(map);
       });
   </script>
